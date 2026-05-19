@@ -1,26 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
-  const [name, setName] = useState(localStorage.getItem("name") || "");
-  const [email, setEmail] = useState(localStorage.getItem("email") || "");
-  const [phone, setPhone] = useState(localStorage.getItem("phone") || "");
-  const [age, setAge] = useState(localStorage.getItem("age") || 0);
-  const [address, setAddress] = useState(localStorage.getItem("address") || "");
-  const [username, setUsername] = useState(
-    localStorage.getItem("username") || "",
-  );
+  const [formData, setFormData] = useState(() => {
+    const savedData = localStorage.getItem("formData");
+    return savedData
+      ? JSON.parse(savedData)
+      : {
+          name: "",
+          email: "",
+          phone: "",
+          age: "",
+          address: "",
+          username: "",
+        };
+  });
+
+  useEffect(() => {
+    localStorage.setItem("formData", JSON.stringify(formData));
+  }, [formData]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = {
-      name,
-      email,
-      phone,
-      age,
-      address,
-      username,
-    };
     console.log(formData);
   };
 
@@ -31,28 +32,38 @@ function App() {
         <input
           type="text"
           id="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={formData.name}
+          onChange={(e) => {
+            setFormData({ ...formData, name: e.target.value });
+          }}
         />
         <br />
         <label htmlFor="email">Email:</label>
         <input
           type="email"
           id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={formData.email}
+          onChange={(e) => {
+            setFormData({ ...formData, email: e.target.value });
+          }}
         />
         <br />
         <label htmlFor="phone">Phone:</label>
         <input
           type="tel"
           id="phone"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
+          value={formData.phone}
+          onChange={(e) => {
+            setFormData({ ...formData, phone: e.target.value });
+          }}
         />
         <br />
         <label htmlFor="age">Age:</label>
-        <select id="age" value={age} onChange={(e) => setAge(e.target.value)}>
+        <select
+          id="age"
+          value={formData.age}
+          onChange={(e) => setFormData({ ...formData, age: e.target.value })}
+        >
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
@@ -69,16 +80,20 @@ function App() {
         <input
           type="text"
           id="address"
-          value={address}
-          onChange={(e) => setAddress(e.target.value)}
+          value={formData.address}
+          onChange={(e) =>
+            setFormData({ ...formData, address: e.target.value })
+          }
         />
         <br />
         <label htmlFor="username">Username:</label>
         <input
           type="text"
           id="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={formData.username}
+          onChange={(e) =>
+            setFormData({ ...formData, username: e.target.value })
+          }
         />
         <br />
         <button type="submit">Submit</button>
