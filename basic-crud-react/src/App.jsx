@@ -2,39 +2,85 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-  const [name, seytName] = useState("");
-  const [email, setEmail] = useState("");
-  const [age, setAge] = useState(0);
-  const [address, setAddress] = useState("");
-  const [username, setUsername] = useState("");
+  const [name, setName] = useState(localStorage.getItem("name") || "");
+  const [email, setEmail] = useState(localStorage.getItem("email") || "");
+  const [phone, setPhone] = useState(localStorage.getItem("phone") || "");
+  const [age, setAge] = useState(localStorage.getItem("age") || 0);
+  const [address, setAddress] = useState(localStorage.getItem("address") || "");
+  const [username, setUsername] = useState(
+    localStorage.getItem("username") || "",
+  );
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = {
+      name,
+      email,
+      phone,
+      age,
+      address,
+      username,
+    };
+    console.log(formData);
+  };
 
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name:</label>
-        <input type="text" />
+        <input
+          type="text"
+          id="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
         <br />
         <label htmlFor="email">Email:</label>
-        <input type="email" />
+        <input
+          type="email"
+          id="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <br />
+        <label htmlFor="phone">Phone:</label>
+        <input
+          type="tel"
+          id="phone"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+        />
         <br />
         <label htmlFor="age">Age:</label>
-        <option value="age">
-          <select id="one">1</select>
-          <select id="two">2</select>
-          <select id="three">3</select>
-          <select id="four">4</select>
-          <select id="five">5</select>
-          <select id="six">6</select>
-          <select id="seven">7</select>
-          <select id="eight">8</select>
-          <select id="nine">9</select>
-          <select id="ten">10</select>
-        </option>
+        <select id="age" value={age} onChange={(e) => setAge(e.target.value)}>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
         <br />
         <label htmlFor="address">Address:</label>
-        <input type="text" />
+        <input
+          type="text"
+          id="address"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+        />
         <br />
         <label htmlFor="username">Username:</label>
+        <input
+          type="text"
+          id="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <br />
         <button type="submit">Submit</button>
       </form>
     </>
