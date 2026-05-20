@@ -1,0 +1,23 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "phone": "123-456-7890"
+    },
+    {
+      "id": "2",
+      "name": "Jane Smith",
+      "email": "janesmith@example.com",
+      "phone": "098-765-4321"
+    },
+    {
+      "name": "Kailash Mahawar",
+      "email": "kmahawar@gmail.com",
+      "phone": "0123456789",
+      "id": "wAUPx4-Mz-g"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
